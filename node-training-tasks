@@ -1,0 +1,99 @@
+Node API tasks.
+
+Create a API application for next tasks.
+
+1. Cars CRUD(using methods like: post, put, get, etc.)
+operations.
+a) get all cars
+b) get one car by id
+c) update, delete, create car.
+
+CarModel: {
+  model: {
+    type: String,
+    required: true
+  },
+  mark:{
+    type: String,
+    required: true
+  },
+  parking : {
+    type: Schema.Types.ObjectId,
+    ref: 'Parking'
+  }
+}
+
+2. Parking CRUD(using methods like: post, put, get, etc.)
+operations.
+a) get all parkings
+b) get one parking by id
+c) update, delete, create parking.
+
+ParkingModel: {
+  name: {
+    type: String,
+    required: true
+  },
+  coordinates:{
+    latitude: {
+      type: String,
+      required: true
+    },
+    longitude: {
+      type: String,
+      required: true
+    }
+  }
+}
+
+3. Bookings CRUD(using methods like: post, put, get, etc.)
+operations.
+a) get all bookings
+b) get one booking by id
+c) update, delete, create booking.
+
+BookingModel: {
+  startDate: {
+    type: Date,
+    required: true
+  },
+  endDate: {
+    type: Date,
+    required: true
+  },
+  car : {
+    type: Schema.Types.ObjectId,
+    ref: 'Car',
+    required: true
+  }
+}
+
+4. User
+operations.
+a) create user
+b) login user
+
+UserModel: {
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  }
+}
+
+
+Extra calls :
+a) get all cars from one parking
+b) get all bookings from one car
+
+Extra:
+Add validations for fields and specific error messages
+Use modular architecture
+

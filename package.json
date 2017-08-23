@@ -1,0 +1,22 @@
+{
+  "name": "node-training-backend",
+  "version": "1.0.0",
+  "description": "node training",
+  "main": "server.js",
+  "repository": "https://github.com/votiv/node-training-backend.git",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "mongoose": "^4.11.6",
+    "node-cache": "^4.1.1",
+    "nodemon": "^1.11.0"
+  }
+}
