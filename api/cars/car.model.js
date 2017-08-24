@@ -16,6 +16,10 @@ const CarSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: 'Parking'
 	},
+	bookings: [{
+	    type: Schema.Types.ObjectId,
+        ref: 'Booking'
+    }],
 	creation_date: {
 		type: Date,
 		default: Date.now()

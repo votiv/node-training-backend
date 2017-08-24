@@ -100,3 +100,17 @@ exports.deleteCar = (req, res) => {
 		res.json({ message: 'Car successfully removed' })
 	})
 }
+
+exports.getBookingsFromCar = (req, res) => {
+
+    Car.findOne({ _id: req.params.carId })
+        .populate('bookings')
+        .exec((error, car) => {
+        
+            if (error) {
+                return res.send(error)
+            }
+            
+            return res.status(200).send(car.bookings)
+        })
+}

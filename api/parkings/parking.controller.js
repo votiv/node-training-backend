@@ -95,3 +95,22 @@ exports.deleteParking = (req, res) => {
 		res.json({ message: 'Parking successfully removed' })
 	})
 }
+
+/**
+ * Get all cars from parking identified by it's ID
+ * @param req
+ * @param res
+ */
+exports.getCarsFromParking = (req, res) => {
+
+    Parking.findOne({ _id: req.params.parkingId })
+        .populate('cars')
+        .exec((error, parking) => {
+        
+            if (error) {
+                return res.send(error)
+            }
+            
+            res.status(200).send(parking.cars)
+        })
+}
