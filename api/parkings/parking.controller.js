@@ -1,7 +1,7 @@
 'use strict'
 
 let mongoose = require('mongoose'),
-	Parking = mongoose.model('Parking')
+    Parking = mongoose.model('Parking')
 
 /**
  * Get all parkings
@@ -9,15 +9,15 @@ let mongoose = require('mongoose'),
  * @param res
  */
 exports.getParkings = (req, res) => {
-
-	Parking.find((error, parkings) => {
-	
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(parkings)
-	})
+    
+    Parking.find((error, parkings) => {
+        
+        if (error) {
+            res.send(error)
+        }
+        
+        res.json(parkings)
+    })
 }
 
 /**
@@ -26,17 +26,17 @@ exports.getParkings = (req, res) => {
  * @param res
  */
 exports.createParking = (req, res) => {
-	
-	let newParking = new Parking(req.body)
-	
-	newParking.save((error, parking) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(parking)
-	})
+    
+    let newParking = new Parking(req.body)
+    
+    newParking.save((error, parking) => {
+        
+        if (error) {
+            res.send(error)
+        }
+        
+        res.json(parking)
+    })
 }
 
 /**
@@ -45,15 +45,15 @@ exports.createParking = (req, res) => {
  * @param res
  */
 exports.getParkingById = (req, res) => {
-	
-	Parking.findById(req.params.parkingId, (error, parking) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(parking)
-	})
+    
+    Parking.findById(req.params.parkingId, (error, parking) => {
+        
+        if (error) {
+            res.send(error)
+        }
+        
+        res.json(parking)
+    })
 }
 
 /**
@@ -62,19 +62,19 @@ exports.getParkingById = (req, res) => {
  * @param res
  */
 exports.updateParking = (req, res) => {
-	
-	let query = { _id: req.params.parkingId },
-		parking = req.body,
-		options = { new: true }
-	
-	Parking.findOneAndUpdate(query, parking, options, (error, parking) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(parking)
-	})
+    
+    let query = { _id: req.params.parkingId },
+        parking = req.body,
+        options = { new: true }
+    
+    Parking.findOneAndUpdate(query, parking, options, (error, parking) => {
+        
+        if (error) {
+            res.send(error)
+        }
+        
+        res.json(parking)
+    })
 }
 
 /**
@@ -83,17 +83,17 @@ exports.updateParking = (req, res) => {
  * @param res
  */
 exports.deleteParking = (req, res) => {
-	
-	let query = { _id: req.params.parkingId }
-	
-	Parking.remove(query, (error, parking) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json({ message: 'Parking successfully removed' })
-	})
+    
+    let query = { _id: req.params.parkingId }
+    
+    Parking.remove(query, (error, parking) => {
+        
+        if (error) {
+            res.send(error)
+        }
+        
+        res.json({ message: 'Parking successfully removed' })
+    })
 }
 
 /**
@@ -102,11 +102,11 @@ exports.deleteParking = (req, res) => {
  * @param res
  */
 exports.getCarsFromParking = (req, res) => {
-
+    
     Parking.findOne({ _id: req.params.parkingId })
         .populate('cars')
         .exec((error, parking) => {
-        
+            
             if (error) {
                 return res.send(error)
             }

@@ -20,23 +20,21 @@ exports.createUser = (req, res) => {
 		
 		// if the user exists already don't do anything
 		if (!!user) {
-			console.log('error', error)
-			return res.send('user already exists')
+
+			return res.status(400).send('user already exists')
 		} else {
 			// else hash the password and save the user
 			
 			const salt = bcrypt.genSaltSync(7)
 			newUser.password = bcrypt.hashSync(newUser.password, salt).toString()
 			
-			console.log('the new user here', newUser)
-			
 			newUser.save((error, user) => {
-				
-				if (error) {
-					return res.send(error)
+                
+                if (error) {
+					return res.status(401).send(error)
 				}
 				
-				return res.send(newUser)
+				return res.status(200).send(newUser)
 			})
 		}
 	})

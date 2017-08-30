@@ -1,7 +1,7 @@
 'use strict'
 
-let mongoose = require('mongoose'),
-	Car = mongoose.model('Car')
+const mongoose = require('mongoose')
+const Car = mongoose.model('Car')
 
 
 /**
@@ -10,15 +10,15 @@ let mongoose = require('mongoose'),
  * @param res
  */
 exports.getCars = (req, res) => {
-
-	Car.find({}, (error, cars) => {
-	
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(cars)
-	})
+    
+    Car.find({}, (error, cars) => {
+        
+        if (error) {
+            res.status(400).send(error)
+        }
+        
+        res.status(200).json(cars)
+    })
 }
 
 
@@ -28,17 +28,17 @@ exports.getCars = (req, res) => {
  * @param res
  */
 exports.createCar = (req, res) => {
-
-	let newCar = new Car(req.body)
-	
-	newCar.save((error, car) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(car)
-	})
+    
+    let newCar = new Car(req.body)
+    
+    newCar.save((error, car) => {
+        
+        if (error) {
+            res.status(400).send(error)
+        }
+        
+        res.status(200).json(car)
+    })
 }
 
 
@@ -48,15 +48,15 @@ exports.createCar = (req, res) => {
  * @param res
  */
 exports.getCarById = (req, res) => {
-	
-	Car.findById(req.params.carId, (error, car) => {
-
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(car)
-	})
+    
+    Car.findById(req.params.carId, (error, car) => {
+        
+        if (error) {
+            res.status(400).send(error)
+        }
+        
+        res.status(200).json(car)
+    })
 }
 
 
@@ -66,19 +66,19 @@ exports.getCarById = (req, res) => {
  * @param res
  */
 exports.updateCar = (req, res) => {
-	
-	const query = { _id: req.params.carId },
-		car = req.body,
-		options = { new: true }
-
-	Car.findOneAndUpdate(query, car, options, (error, car) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json(car)
-	})
+    
+    const query = { _id: req.params.carId },
+        car = req.body,
+        options = { new: true }
+    
+    Car.findOneAndUpdate(query, car, options, (error, car) => {
+        
+        if (error) {
+            res.status(400).send(error)
+        }
+        
+        res.status(200).json(car)
+    })
 }
 
 
@@ -88,27 +88,27 @@ exports.updateCar = (req, res) => {
  * @param res
  */
 exports.deleteCar = (req, res) => {
-	
-	const query = { _id: req.params.carId }
-
-	Car.remove(query, (error, car) => {
-		
-		if (error) {
-			res.send(error)
-		}
-		
-		res.json({ message: 'Car successfully removed' })
-	})
+    
+    const query = { _id: req.params.carId }
+    
+    Car.remove(query, (error, car) => {
+        
+        if (error) {
+            res.status(400).send(error)
+        }
+        
+        res.status(200).json({ message: 'Car successfully removed' })
+    })
 }
 
 exports.getBookingsFromCar = (req, res) => {
-
+    
     Car.findOne({ _id: req.params.carId })
         .populate('bookings')
         .exec((error, car) => {
-        
+            
             if (error) {
-                return res.send(error)
+                return res.status(400).send(error)
             }
             
             return res.status(200).send(car.bookings)
