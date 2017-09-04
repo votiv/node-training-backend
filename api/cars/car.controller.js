@@ -1,7 +1,9 @@
 'use strict'
 
+const R = require('ramda')
 const mongoose = require('mongoose')
 const Car = mongoose.model('Car')
+const Booking = mongoose.model('Booking')
 
 
 /**
@@ -29,15 +31,35 @@ exports.getCars = (req, res) => {
  */
 exports.createCar = (req, res) => {
     
-    let newCar = new Car(req.body)
+    const newCar = new Car(req.body)
+    const bookingsLength = newCar.bookings.length
     
-    newCar.save((error, car) => {
+    Booking.find({ '_id': { $in: newCar.bookings } }, (error, bookings) => {
+        
+        console.log('this was found', bookings)
         
         if (error) {
-            res.status(400).send(error)
+            return res.status(400).send(error)
         }
         
-        res.status(200).json(car)
+        
+        if (bookings && bookings.length === bookingsLength) {
+            
+            newCar.save((error, car) => {
+                
+                if (error) {
+                    return res.status(400).send(error)
+                }
+                
+                return res.status(200).json(car)
+            })
+        } else {
+            
+            const isNotABooking = newCar.bookings.filter((element) => { return bookings.indexOf(element) < 0 })
+            const errorMessage = 'Not a valid booking Id: ' + isNotABooking
+            
+            return res.status(400).send(errorMessage)
+        }
     })
 }
 

@@ -30,6 +30,10 @@ exports.createBooking = (req, res) => {
     
     const newBooking = new Booking(req.body)
     
+    
+    
+    
+    
     newBooking.save((error, booking) => {
         
         if (error) {
